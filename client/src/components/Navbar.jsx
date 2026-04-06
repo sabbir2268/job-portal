@@ -9,7 +9,11 @@ const Navbar = () => {
   const baseLinks = [{ title: "Home", path: "/" }];
 
   const authLinks = user
-    ? [{ title: "My Applications", path: "/myApplications" }]
+    ? [
+        { title: "My Applications", path: "/myApplications" },
+        { title: "Add Job", path: "/addJob" },
+        { title: "Posted Jobs", path: "/myPostedJobs" },
+      ]
     : [];
 
   const links = [...baseLinks, ...authLinks];
@@ -38,7 +42,7 @@ const Navbar = () => {
       <div className="navbar-start">
         {/* MOBILE MENU */}
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-primary lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -75,10 +79,12 @@ const Navbar = () => {
 
       {/* CENTER (DESKTOP MENU) */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 flex gap-1">
           {links.map((link, index) => (
             <li key={index}>
-              <Link to={link.path}>{link.title}</Link>
+              <Link className="btn btn-link btn-ghost" to={link.path}>
+                {link.title}
+              </Link>
             </li>
           ))}
         </ul>
