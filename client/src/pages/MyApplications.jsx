@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { getMyApplications } from "../api/api";
 import ApplicationCard from "../components/ApplicationCard";
+import { jobsCreatedByPromise } from "../api/jobsApi";
 
 const MyApplications = () => {
   const { user } = useContext(AuthContext);
@@ -12,7 +12,7 @@ const MyApplications = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    getMyApplications(user.email)
+    jobsCreatedByPromise(user.email)
       .then((data) => {
         setApplications(data);
         setLoading(false);

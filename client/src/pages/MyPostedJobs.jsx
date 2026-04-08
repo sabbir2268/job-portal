@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-// import your auth context if you have one
-// import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
+import { jobsCreatedByPromise } from "../api/jobsApi";
 
 const MyPostedJobs = () => {
-  // const { user } = useContext(AuthContext);
-  const userEmail = "hr@techsolutions.com"; // replace with user?.email
+  const { user } = useContext(AuthContext);
+  const userEmail = user?.email;
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,11 +13,8 @@ const MyPostedJobs = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_JOBS_URL}/jobs?hr_email=${userEmail}`,
-        );
-
-        setJobs(res.data);
+        const data = await jobsCreatedByPromise(userEmail);
+        setJobs(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -25,7 +22,9 @@ const MyPostedJobs = () => {
       }
     };
 
-    fetchJobs();
+    if (userEmail) {
+      fetchJobs();
+    }
   }, [userEmail]);
 
   if (loading) {

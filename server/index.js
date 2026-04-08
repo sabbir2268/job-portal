@@ -29,9 +29,15 @@ async function run() {
       .db("careerCodes")
       .collection("applications");
 
-    // routes for jobs
+    // routes for jobs for all and email based jobs
     app.get("/jobs", async (req, res) => {
-      const cursor = jobsCollection.find();
+      const email = req.query.email;
+      const query = {};
+      if (email) {
+        query.hr_email = email;
+      }
+
+      const cursor = jobsCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
     });
@@ -42,6 +48,14 @@ async function run() {
       const result = await jobsCollection.findOne(query);
       res.send(result);
     });
+
+    //will work but not suitable
+    // app.get("/postedJobs", async (req, res) => {
+    //   const email = req.query.email;
+    //   const query = { hr_email: email };
+    //   const result = await jobsCollection.find(query).toArray();
+    //   res.send(result);
+    // });
 
     app.post("/jobs", async (req, res) => {
       const newJob = req.body;
