@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { AuthContext } from "./AuthContext";
-
+import axios from "axios";
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
@@ -42,6 +42,19 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      if (currentUser?.email) {
+        axios
+          .post(
+            `${import.meta.env.VITE_JOBS_URL}/jwt`,
+            {
+              email: currentUser.email,
+            },
+            { withCredentials: true },
+          )
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
+      }
     });
     return () => {
       unsubscribe();

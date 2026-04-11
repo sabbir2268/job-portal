@@ -11,6 +11,7 @@ import ApplyJob from "../pages/ApplyJob";
 import MyApplications from "../pages/MyApplications";
 import AddJob from "../pages/AddJob";
 import MyPostedJobs from "../pages/MyPostedJobs";
+import ViewApplications from "../pages/ViewApplications";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,18 @@ export const router = createBrowserRouter([
             <MyPostedJobs></MyPostedJobs>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/applications/:job_id",
+        element: (
+          <PrivateRoute>
+            <ViewApplications></ViewApplications>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `${import.meta.env.VITE_JOBS_URL}/applications/job/${params.job_id}`,
+          ),
       },
     ],
   },

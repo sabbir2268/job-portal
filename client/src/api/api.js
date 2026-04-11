@@ -1,6 +1,7 @@
 export const getMyApplications = async (email) => {
   const res = await fetch(
     `${import.meta.env.VITE_JOBS_URL}/applications?email=${email}`,
+    { credentials: "include" },
   );
 
   if (!res.ok) {

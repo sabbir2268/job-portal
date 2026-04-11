@@ -5,10 +5,10 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-base-200 text-base-content">
       {/* HERO SECTION */}
-      <Banner></Banner>
+      {/* <Banner></Banner> */}
 
       {/* FEATURES SECTION */}
-      <section className="grid md:grid-cols-3 gap-6 px-6 pb-20 max-w-6xl mx-auto">
+      {/* <section className="grid md:grid-cols-3 gap-6 px-6 pb-20 max-w-6xl mx-auto">
         <div className="bg-base-100 p-6 rounded-2xl shadow-md">
           <h2 className="text-xl font-semibold mb-3">⚡ Fast Development</h2>
           <p className="opacity-70">
@@ -32,7 +32,7 @@ const Home = () => {
             level up your dev skills.
           </p>
         </div>
-      </section>
+      </section> */}
 
       <section className="bg-base-100 py-5 px-6 text-center">
         <HotJobs></HotJobs>
